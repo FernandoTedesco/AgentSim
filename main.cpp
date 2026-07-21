@@ -29,8 +29,8 @@ int main()
         return 1;
     }
     Grid grid;
-    grid.grid_width = parameters::grid_width;
-    grid.grid_height = parameters::grid_height;
+    grid.width = parameters::grid_width;
+    grid.height = parameters::grid_height;
     grid.cell_size = parameters::cell_size;
     
     Terrain terrain;

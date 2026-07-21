@@ -5,7 +5,7 @@
 
 void renderGrid(Grid &grid,Terrain &terrain, SDL_Renderer* renderer)
 {
-    SDL_SetRenderDrawColor(renderer, 30, 200, 30, 255);
+    SDL_SetRenderDrawColor(renderer, 40, 150, 40, 255);
     SDL_RenderFillRects(renderer, terrain.grass.data(),terrain.grass.size());
 
     SDL_SetRenderDrawColor(renderer, 50, 50, 200, 255);
@@ -24,16 +24,16 @@ void rebuildGrid(Grid &grid,Terrain &terrain)
        {
         case 0:
         {
-            current_rect.x = (i % grid.grid_width) * grid.cell_size; 
-            current_rect.y = (i / grid.grid_width) * grid.cell_size;
+            current_rect.x = (i % grid.width) * grid.cell_size; 
+            current_rect.y = (i / grid.width) * grid.cell_size;
             terrain.grass.push_back(current_rect);
             break;
         }
 
         case 1:
         {
-            current_rect.x = (i % grid.grid_width) * grid.cell_size; 
-            current_rect.y = (i / grid.grid_width) * grid.cell_size;
+            current_rect.x = (i % grid.width) * grid.cell_size; 
+            current_rect.y = (i / grid.width) * grid.cell_size;
             terrain.water.push_back(current_rect);
             break;
         }

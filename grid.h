@@ -2,10 +2,17 @@
 #include <vector>
 #include <cstdint>
 
+struct Pos
+{
+    int x;
+    int y;
+};
+
+
 struct Grid
 {
-    int grid_width;
-    int grid_height;
+    int width;
+    int height;
     int grid_size;
     int cell_size;
 
@@ -13,11 +20,13 @@ struct Grid
 
     std::vector<uint8_t> food;
     std::vector<uint8_t> terrain;
+    std::vector<uint8_t> heightmap;
     
 };
 
 void buildGrid(Grid &grid);
 
+std::vector<int> genRiver(Grid &grid, int rivers);
 
 
 
