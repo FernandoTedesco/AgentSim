@@ -1,47 +1,22 @@
 #include "renderer.h"
 #include <SDL3/SDL.h>
-
-
-
-void renderGrid(Grid &grid,Terrain &terrain, SDL_Renderer* renderer)
+#include <vector>
+#include "camera.h"
+#include "math.h"
+void renderGrid(Grid &grid, Camera camera,  GL_State gl_state)
 {
-    SDL_SetRenderDrawColor(renderer, 40, 150, 40, 255);
-    SDL_RenderFillRects(renderer, terrain.grass.data(),terrain.grass.size());
+ 
+    glUseProgram(gl_state.shader);
 
-    SDL_SetRenderDrawColor(renderer, 50, 50, 200, 255);
-    SDL_RenderFillRects(renderer, terrain.water.data(),terrain.water.size());
-}
+    glUniform2f(gl_state.u_camera, roundf(camera.x), roundf(camera.y));
+    glUniform2f(gl_state.u_view_size, 1200.0f, 800.0f);
+    glUniform1f(gl_state.u_cell_size, (float)grid.cell_size);
+    glUniform1i(gl_state.u_grid_width, grid.width);
 
-void rebuildGrid(Grid &grid,Terrain &terrain)
-{
-    SDL_FRect current_rect;
-    current_rect.w = grid.cell_size;
-    current_rect.h = grid.cell_size;
+    glBindVertexArray(gl_state.vao);
+    glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, grid.grid_size);
 
-    for(int i=0; i<grid.grid_size; i++)
-    {
-       switch(grid.terrain[i])
-       {
-        case 0:
-        {
-            current_rect.x = (i % grid.width) * grid.cell_size; 
-            current_rect.y = (i / grid.width) * grid.cell_size;
-            terrain.grass.push_back(current_rect);
-            break;
-        }
 
-        case 1:
-        {
-            current_rect.x = (i % grid.width) * grid.cell_size; 
-            current_rect.y = (i / grid.width) * grid.cell_size;
-            terrain.water.push_back(current_rect);
-            break;
-        }
-       }
-    
-       
-    }
-    
 }
 
 

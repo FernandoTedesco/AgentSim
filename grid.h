@@ -26,7 +26,7 @@ struct Grid
 
 void buildGrid(Grid &grid);
 
-std::vector<int> genRiver(Grid &grid, int rivers);
+
 
 
 

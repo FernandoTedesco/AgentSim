@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 4.4.0)
 
-project(GPU_Agents VERSION 0.0.1 LANGUAGES CXX)
+project(GPU_Agents VERSION 0.0.1 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -11,5 +11,9 @@ renderer.cpp)
 
 find_package(SDL3 REQUIRED)
 
-target_link_libraries(GPU_Agents PRIVATE SDL3::SDL3)
+add_library(glad STATIC src/gl.c)
+
+target_include_directories(glad PUBLIC include)
+
+target_link_libraries(GPU_Agents PRIVATE SDL3::SDL3 glad)
 
